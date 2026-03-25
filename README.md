@@ -19,18 +19,33 @@ A lightweight, pure Java I/O utility library.
 ## Installation
 
 ### Step 1: Add JitPack repository
+Add the following to the `build.gradle` file at the project level
 
 ```gradle
-repositories {
-    maven { url 'https://jitpack.io' }
+buildscript {
+  
+  repositories {
+      mavenCentral()
+      maven { url 'https://jitpack.io' }
+  }
+}
+
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
 ### Step 2: Add dependency
+Add the following in the `build.gradle` file at the application level
 
 ```groovy
 dependencies {
-    implementation 'com.github.alistair:core-io:1.0.0'
+    implementation 'com.github.AlistairLi:core-io:1.0.0'
 }
 ```
 
@@ -48,26 +63,19 @@ List<String> lines = IOUtils.readLines(new File("test.txt"));
 IOUtils.writeText(new File("out.txt"), "Hello core-io");
 
 // Append text
-        IOUtils.
-
-appendText(new File("out.txt"), "\nAppend line");
+IOUtils.appendText(new File("out.txt"), "\nAppend line");
 
 
 // Copy stream
-        try(
+try(
 InputStream in = new FileInputStream("a.txt");
 OutputStream out = new FileOutputStream("b.txt")){
-
-        IOUtils.
-
-copy(in, out);
+    IOUtils.copy(in, out);
 }
 
 // File utilities
 File dir = new File("logs");
-FileUtils.
-
-ensureDir(dir);
+FileUtils.ensureDir(dir);
 
 String ext = FileUtils.getExtension("demo.txt"); // txt
 String size = FileUtils.readableSize(2048);      // 2.00 KB
