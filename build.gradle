@@ -1,0 +1,48 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'com.github.alistair'
+version = '1.0.0'
+
+java {
+//    sourceCompatibility JavaVersion.VERSION_1_8
+//    targetCompatibility JavaVersion.VERSION_1_8
+
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+
+            groupId = project.group
+            artifactId = 'core-io'
+            version = project.version
+
+            pom {
+                name = 'core-io'
+                description = 'A lightweight Java IO utility library.'
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 当前版本保持纯净，不依赖第三方库
+}
